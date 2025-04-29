@@ -1,7 +1,7 @@
 # Web-securecoding-edu-scenarios
 
 0.실습 환경 구성 방법<br>
-1) WSL 설치 (윈도우 환경에선 실습에서 진행하고자 하는 보안 기법인 DEP, ASLR이 자동 적용되어있기에 Linux OS에서 하는게 좋음)<br>
+1)WSL 설치 (윈도우 환경에선 실습에서 진행하고자 하는 보안 기법인 DEP, ASLR이 자동 적용되어있기에 Linux OS에서 하는게 좋음)<br>
 $ wsl --install<br>
 2)Ubuntu 터미널에서 기본 세팅<br>
 $sudo apt update<br>

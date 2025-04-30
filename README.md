@@ -10,10 +10,11 @@ $sudo apt install build-essential gdb<br><br>
 $gcc -o order order.c -no-pie -fno-stack-protector -Wno-implicit-function-declaration<br><br>
 4)ASLR 끄기(루트 권한 필요)<br>
 $sudo sysctl -w kernel.randomize_va_space=0<br>
-4-1)실습 이후 kernel.randomize_va_space=2로 복구하기<br><br>
-5)심볼릭 링크로 연결, 이걸 안하면 파일을 수정할 때마다 /var/www/html에 직접 복사해줘야하기 때문<br>
-$sudo rm -rf /var/www/html/*<br>
-$sudo ln -s "~작업공간/web" /var/www/html<br><br><br>
+4-1)실습 이후 kernel.randomize_va_space=2로 복구하기<br><br><br>
+
+0.5. VSCode for Window환경에서 할시<br>
+1)확장 -> Remote WSL(2025.04.30기준 WSL)<br>
+2)code .<br><br>
 
 1.Apache 서버 실행<br>
 1)서버 처음 시작할 때<br>
@@ -21,10 +22,18 @@ $sudo service apache2 start<br><br>
 1-1)http://localhost 로 연결 확인가능(Apache는 기본적으로 80포트 사용)<br>
 1-2)http://localhost/web/insert.html 실제 웹 페이지를 보여주고 싶으면 경로도 지정해주면됨<br><br>
 2)서버 실행 중이며 변경 적용 시<br>
-PHP 설정(php.ini), Apache 설정(apache2.conf), 새로운 모듈 설치할 때만 사용<br>
+PHP 설정(php.ini), Apache 설정(apache2.conf), 새로운 모듈 설s치할 때만 사용<br>
 $sudo service apache2 restart<br><br>
 3)서버 종료<br>
 $sudo service apache2 stop<br><br><br>
+
+1.5.Home에 복사 및 /var/www/html에서 실행하기<br>
+1)홈 디렉토리에 프로젝트 복사<br>
+cp -r "/mnt/c/Users/user/Desktop/Git 작업 공간/Web-securecoding-edu-scenarios" ~/web-securecoding<br><br>
+2)파일 복사<br>
+sudo cp -r ~/web-securecoding/web/* /var/www/html/<br><br>
+3)이대로 바로 Window에 접속하면 안된다. ip addr show eth0 명령어를 통해 inet 172.26.209.144 확인<br>
+3-1)확인한 ip로 접속<br><br>
 
 2.공격 테스트<br>
 1)backend폴더 안에 있는 order.c 파일을 컴파일<br>

@@ -3,7 +3,7 @@
 #include <string.h>
 
 void process_order(int quantity, char *special_request) {
-    unsigned int price_per_item = 1000;  // 단가 1000원
+    unsigned int price_per_item = 2000;  // 단가 1000원
     unsigned int total_price;
 
     // 🛑 Integer Overflow 취약점

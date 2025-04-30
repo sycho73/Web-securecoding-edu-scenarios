@@ -21,10 +21,18 @@ $sudo service apache2 start<br><br>
 1-1)http://localhost 로 연결 확인가능(Apache는 기본적으로 80포트 사용)<br>
 1-2)http://localhost/web/insert.html 실제 웹 페이지를 보여주고 싶으면 경로도 지정해주면됨<br><br>
 2)서버 실행 중이며 변경 적용 시<br>
+PHP 설정(php.ini), Apache 설정(apache2.conf), 새로운 모듈 설치할 때만 사용<br>
 $sudo service apache2 restart<br><br>
 3)서버 종료<br>
-$sudo service apache2 stop<br><br>
+$sudo service apache2 stop<br><br><br>
 
+2.공격 테스트<br>
+1)backend폴더 안에 있는 order.c 파일을 컴파일<br>
+$make<br><br>
+2)이후 http://localhost/web/insert.html 에 들어가서 테스트<br><br>
+3)Integer Overflow test<br>
+Quantity에 4294967295-> 4294966296 나올 시 성공적인 테스트<br><br>
+4)Buffer Overflow test<br>
 
 
 

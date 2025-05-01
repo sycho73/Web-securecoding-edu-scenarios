@@ -8,16 +8,16 @@
     <h2>Order Product</h2>
 
     <!-- 이미지 삽입 -->
-    <img src="../image/product.png" alt="Product Image" width="300"><br><br>
+    <img src="../image/product.png" alt="Product Image" width="300"><br>
+    <p>개당 가격 : 2000원</p>
 
     <!-- 주문 폼 -->
     <form action="order.php" method="POST">
         주문 수량: <input type="text" name="quantity"><br>
+        특별상품 수량: <input type="text" name="special_count"><br>
         추가 요구 사항: <input type="text" name="special_request"><br><br>
         <input type="submit" value="Order Now">
     </form>
 
-    <!-- 연락처 정보 -->
-    <p>연락처 : 010-1234-5678</p>
 </body>
 </html>

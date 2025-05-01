@@ -30,19 +30,21 @@ $sudo service apache2 stop<br><br><br>
 1.5.심볼릭 링크로 작업공간하고 링크하여 /var/www/html에서 실행하기<br>
 1)심볼릭 링크를 이용하여 VScode작업공간하고 링크하여 실시간으로 참조하게 하기<br>
 $sudo ln -s /mnt/c/Users/user/Desktop/Git\ 작업\ 공간/Web-securecoding-edu-scenarios /var/www/html<br>
-2)이대로 바로 Window에 접속하면 안된다. ip addr show eth0 명령어를 통해 inet 172.26.209.144 확인<br>
-2-1)확인한 ip로 접속 http://172.26.209.144/web/insert.html <br><br>
+2)확인한 ip로 접속 http://localhost/web/insert.html <br><br>
 
-2.공격 테스트<br>
+2.공격 확인 테스트<br>
 1)backend폴더 안에 있는 order.c 파일을 컴파일<br>
 $make<br><br>
-2)이후 서버 실행 중 변경 후 http://172.26.209.144/web/insert.html 에 들어가서 테스트<br><br>
+2)이후 서버 실행 중 변경 후 http://localhost/web/insert.html 에 들어가서 테스트<br><br>
 3)Integer Overflow test<br>
 Quantity에 2147484-> ⚠️ Integer Overflow 발생! Total price: 704 나올 시 성공적인 테스트<br><br>
-4)Buffer Overflow test<br>
+4)3번에서 발생한 Integer Overflow에 의한 Buffer Overflow test<br>
+
+5)Buffer Overflow test<br>
 Special Request에 aaaaaaaaaaaaaaaaaaaaa(총 21개)->⚠️ Buffer Overflow 가능성 있음! (입력 길이 초과)Order received: aaaaaaaaaaaaaaaaaaaaa 나올 시 성공적인 테스트(입력 길이 더 길어지면 명령 실행 실패 뜸 현재는 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa(32개)이상)<br><br><br>
 
-3.
+3.실제 공격(Integer Overflow -> Buffer Overflow 시나리오)<br>
+0)구체적인 시나리오 : 
 
 
 

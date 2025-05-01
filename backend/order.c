@@ -17,7 +17,7 @@ void process_order(int quantity, char *special_request) {
     if (quantity > 0 && price_per_item > UINT_MAX / quantity) {
         printf("⚠️ Integer Overflow 발생!\n");
     }
-
+    
     total_price = quantity * price_per_item;
     printf("Total price: %u\n", total_price);
 
@@ -28,7 +28,7 @@ void process_order(int quantity, char *special_request) {
     }
 
     // Buffer Overflow 검출
-    if (strlen(special_request) >= 20) {
+    if (strlen(special_request) > 20) {
         printf("⚠️ Buffer Overflow 가능성 있음! (입력 길이 초과)\n");
     }
 

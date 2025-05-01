@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Secure Order</title>
 </head>
 <body>
     <h2>Order Product</h2>
+
+    <!-- 이미지 삽입 -->
+    <img src="../image/product.png" alt="Product Image" width="300"><br><br>
+
+    <!-- 주문 폼 -->
     <form action="order.php" method="POST">
-        Quantity: <input type="text" name="quantity"><br>
-        Special Request: <input type="text" name="special_request"><br>
+        주문 수량: <input type="text" name="quantity"><br>
+        추가 요구 사항항: <input type="text" name="special_request"><br><br>
         <input type="submit" value="Order Now">
     </form>
+
+    <!-- 연락처 정보 -->
+    <p>연락처 : 010-1234-5678</p>
 </body>
 </html>

@@ -1,14 +1,31 @@
 <?php
-$quantity = escapeshellarg($_POST['quantity']);
-$special_request = escapeshellarg($_POST['special_request']);
+header("Content-Type: text/html; charset=UTF-8");
 
-// C 실행 파일 경로 수정 (order_processor는 /var/www/html/에 복사되어 있어야 함)
+$quantity_raw = $_POST['quantity'];
+$special_request_raw = $_POST['special_request'];
+
+$quantity = escapeshellarg($quantity_raw);
+$special_request = escapeshellarg($special_request_raw);
+
 $cmd = "../backend/order $quantity $special_request";
 $output = shell_exec($cmd);
-
-if ($output === null) {
-    echo "⚠️ 명령 실행 실패: $cmd";
-} else {
-    echo "<pre>$output</pre>";
-}
 ?>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>주문 결과</title>
+</head>
+<body>
+    <h2>주문 결과</h2>
+
+    <p><strong>수량:</strong> <?php echo htmlspecialchars($quantity_raw); ?></p>
+    <p><strong>요청사항:</strong> <?php echo htmlspecialchars($special_request_raw); ?></p>
+
+    <?php if ($output === null): ?>
+        <p style="color: red;"><strong>⚠️ 오류 발생: 프로그램이 비정상적으로 종료되었습니다 (버퍼 오버플로우 가능성)</strong></p>
+    <?php else: ?>
+        <pre><?php echo htmlspecialchars($output); ?></pre>
+    <?php endif; ?>
+</body>
+</html>

@@ -22,26 +22,27 @@ $sudo service apache2 start<br><br>
 1-1)http://localhost 로 연결 확인가능(Apache는 기본적으로 80포트 사용)<br>
 1-2)http://localhost/web/insert.html 실제 웹 페이지를 보여주고 싶으면 경로도 지정해주면됨<br><br>
 2)서버 실행 중이며 변경 적용 시<br>
-PHP 설정(php.ini), Apache 설정(apache2.conf), 새로운 모듈 설s치할 때만 사용<br>
+PHP 설정(php.ini), Apache 설정(apache2.conf), 새로운 모듈 설치할 때만 사용<br>
 $sudo service apache2 restart<br><br>
 3)서버 종료<br>
 $sudo service apache2 stop<br><br><br>
 
-1.5.Home에 복사 및 /var/www/html에서 실행하기<br>
-1)홈 디렉토리에 프로젝트 복사<br>
-cp -r "/mnt/c/Users/user/Desktop/Git 작업 공간/Web-securecoding-edu-scenarios" ~/web-securecoding<br><br>
-2)파일 복사<br>
-sudo cp -r ~/web-securecoding/web/* /var/www/html/<br><br>
-3)이대로 바로 Window에 접속하면 안된다. ip addr show eth0 명령어를 통해 inet 172.26.209.144 확인<br>
-3-1)확인한 ip로 접속<br><br>
+1.5.심볼릭 링크로 작업공간하고 링크하여 /var/www/html에서 실행하기<br>
+1)심볼릭 링크를 이용하여 VScode작업공간하고 링크하여 실시간으로 참조하게 하기<br>
+$sudo ln -s /mnt/c/Users/user/Desktop/Git\ 작업\ 공간/Web-securecoding-edu-scenarios /var/www/html<br>
+2)이대로 바로 Window에 접속하면 안된다. ip addr show eth0 명령어를 통해 inet 172.26.209.144 확인<br>
+2-1)확인한 ip로 접속 http://172.26.209.144/web/insert.html <br><br>
 
 2.공격 테스트<br>
 1)backend폴더 안에 있는 order.c 파일을 컴파일<br>
 $make<br><br>
-2)이후 http://localhost/web/insert.html 에 들어가서 테스트<br><br>
+2)이후 서버 실행 중 변경 후 http://172.26.209.144/web/insert.html 에 들어가서 테스트<br><br>
 3)Integer Overflow test<br>
-Quantity에 4294967295-> 4294966296 나올 시 성공적인 테스트<br><br>
+Quantity에 2147484-> ⚠️ Integer Overflow 발생! Total price: 704 나올 시 성공적인 테스트<br><br>
 4)Buffer Overflow test<br>
+Special Request에 aaaaaaaaaaaaaaaaaaaaa(총 21개)->⚠️ Buffer Overflow 가능성 있음! (입력 길이 초과)Order received: aaaaaaaaaaaaaaaaaaaaa 나올 시 성공적인 테스트(입력 길이 더 길어지면 명령 실행 실패 뜸 현재는 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa(32개)이상)<br><br><br>
+
+3.
 
 
 

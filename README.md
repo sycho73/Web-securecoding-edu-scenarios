@@ -38,25 +38,25 @@ $make<br><br>
 2)이후 서버 실행 중 변경 후 http://localhost/web/insert.html 에 들어가서 테스트<br><br>
 3)Integer Overflow test<br>
 주문수량에 2147484 입력<br>
-⚠️ Integer Overflow 발생!(총 가격에서 발생)<br>
+Integer Overflow 발생!(총 가격에서 발생)<br>
 요청 수량: 2147484 <br>
 단가: 2000원 <br>
 총 가격: 704원 <br>
-⚠️ Integer Overflow로 인해 실제 계산된 수량: 0 (원래 입력: 2147484)<br>
+Integer Overflow로 인해 실제 계산된 수량: 0 (원래 입력: 2147484)<br>
 나올 시 성공적인 테스트<br><br>
 4)Integer Overflow->Buffer Overflow test<br>
 주문수량에 4294967296+n 입력 및 특별상품 개수에 k값 입력(이 때 n은 양의 정수이며 k값은 n이상의 양의 정수 값)<br>
-⚠️ Integer Overflow 발생!(주문 수량에서 발생)<br>
+Integer Overflow 발생!(주문 수량에서 발생)<br>
 요청 수량: n<br>
 단가: 2000원<br>
 총 가격: n*2000원<br>
-⚠️ Buffer Overflow 발생 가능성! (특별상품 버퍼 크기보다 더 많이 저장 시도)<br>
-특별상품 ID 저장 완료 (실제로 요청된 수량: n, 실제 저장된 개수: n)<br>
+Buffer Overflow 발생 가능성! (특별상품 버퍼 크기보다 더 많이 저장 시도)<br>
+특별상품 ID 저장 완료 (요청된 수량: n, 특별상품 저장된 개수: n)<br>
 나올 시 성공적인 테스트<br>
 4-1)여기에선 실제 Buffer Overflow가 발생하진 않고 논리적인 의미에서의 시나리오 가능성 체크<br><br>
 5)Buffer Overflow test<br>
 추가요구사항에 문자열의 길이가 20을 넘는(a가 21개) 문자열 입력<br>
-⚠️ 추가 요구사항 입력 길이 초과 (Buffer Overflow 가능성)<br>
+추가 요구사항 입력 길이 초과 (Buffer Overflow 가능성)<br>
 추가 요청사항: aaaaaaaaaaaaaaaaaaaaa<br>
 5-1)여기 또한 실제 Buffer Overflow가 발생하진 않고 논리적인 의미에서의 시나리오 가능성 체크. 해당 부분은 실제 공격을 통해 공격 결과 출력 예정<br><br>
 
@@ -68,10 +68,15 @@ $make<br><br>
 2-1) 2.공격 확인 테스트-4) Integer Overflow->Buffer Overflow test 과정과 동일하게 진행<br><br>
 
 4.실제 공격2<br>
-1)Buffer Overflow test : 추가 요구사항에 Buffer Overflow를 일으킬 요구사항을 입력하여 Buffer Overflow를 유발시켜 넘어선 메모리 영역에 악성 코드를 삽입하여 공격자가 지정한 html페이지로 이동<br>
+1)Buffer Overflow test : 추가 요구사항에 Buffer Overflow를 일으킬 요구사항을 입력하여 Buffer Overflow를 유발시켜 넘어선 메모리 영역 리턴주소에 ROP체인을 삽입하여 puts()함수 실행<br>
 1-1)공격에 취약한 order.c 컴파일<br>
 1-2)gcc -o attack attack.c 컴파일<br>
-attack 디렉토리에서 ./attack > ../backend/input.bin
-backend 디렉토리에서 ./order 10 5 "$(cat input.bin)"
+1-3)attack 디렉토리에서 ./attack > ../backend/input.bin<br>
+1-4)backend 디렉토리에서 ./order 10 5 "$(cat input.bin)"<br>
+1-5)추가 요구사항: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;@P@@P����Exploit succeeded!<br>
+Segmentation fault 와 같은 결과가 나오면 공격 성공<br><br>
+
+5.시큐어 코딩<br>
+
 
 

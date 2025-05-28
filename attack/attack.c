@@ -32,7 +32,7 @@ int main() {
 
     // 9. 페이로드 출력 (stdin 또는 파일에 리디렉션 가능)
     fwrite(payload, 1, 88, stdout);
-    printf("Exploit succeeded!\n");
+    puts("Exploit succeeded!\n");
 
     return 0;
 }

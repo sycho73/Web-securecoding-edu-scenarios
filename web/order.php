@@ -26,7 +26,7 @@ $output = shell_exec($cmd);
     <p><strong>추가 요구 사항:</strong> <?php echo htmlspecialchars($special_request_raw); ?></p>
 
     <?php if ($output === null): ?>
-        <p style="color: red;"><strong>⚠️ 오류 발생: 프로그램이 비정상적으로 종료되었습니다 (버퍼 오버플로우 가능성)</strong></p>
+        <p style="color: red;"><strong>오류 발생: 프로그램이 비정상적으로 종료되었습니다 (버퍼 오버플로우 가능성)</strong></p>
     <?php else: ?>
         <pre><?php echo htmlspecialchars($output); ?></pre>
     <?php endif; ?>

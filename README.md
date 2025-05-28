@@ -6,7 +6,7 @@ $ wsl --install<br><br>
 2)Ubuntu 터미널에서 기본 세팅<br>
 $sudo apt update<br>
 $sudo apt install build-essential gdb<br><br>
-3)소스코드 작성 후 gcc로 컴파일(-no -pie는 Position Independent Executable를 꺼서 ASLR 약화, -fno-stack-protector를 통해 스택 프로텍터 끔 -> 스택 버퍼 오버플로우 보호 제거거, -Wno-implicit-function-declaration을 통해 컴파일할 때 경고 무시 후 강제 컴파일일)<br>
+3)소스코드 작성 후 gcc로 컴파일(-no -pie는 Position Independent Executable를 꺼서 ASLR 약화, -fno-stack-protector를 통해 스택 프로텍터 끔 -> 스택 버퍼 오버플로우 보호 제거, -Wno-implicit-function-declaration을 통해 컴파일할 때 경고 무시 후 강제 컴파일)<br>
 $gcc -o order order.c -no-pie -fno-stack-protector -Wno-implicit-function-declaration<br><br>
 4)ASLR 끄기(루트 권한 필요)<br>
 $sudo sysctl -w kernel.randomize_va_space=0<br>
@@ -14,7 +14,7 @@ $sudo sysctl -w kernel.randomize_va_space=0<br>
 
 0.5. VSCode for Window환경에서 할시<br>
 1)확장 -> Remote WSL(2025.04.30기준 WSL)<br>
-2)code .<br><br>
+2)VSCode for Window 연결 시 원격 탐색기에서 사용하는 Linux 선택<br><br>
 
 1.Apache 서버 실행<br>
 1)서버 처음 시작할 때<br>
@@ -60,14 +60,18 @@ $make<br><br>
 추가 요청사항: aaaaaaaaaaaaaaaaaaaaa<br>
 5-1)여기 또한 실제 Buffer Overflow가 발생하진 않고 논리적인 의미에서의 시나리오 가능성 체크. 해당 부분은 실제 공격을 통해 공격 결과 출력 예정<br><br>
 
-3.실제 공격<br>
-0)공격 시나리오 : Integer Overflow, Integer Overflow -> Buffer Overflow, Buffer Overflow<br>
+3.실제 공격1<br>
+0)공격 시나리오 : Integer Overflow, Integer Overflow -> Buffer Overflow<br>
 1)Integer Overflow : 총 가격(주문수량x2000)에 Integer Overflow를 일으킬 주문수량값을 입력하여 총 가격 정보 변조<br>
 1-1) 2.공격 확인 테스트-3) Integer Overflow test 과정과 동일하게 진행<br><br>
 2)Integer Overflow -> Buffer Overflow : 주문수량에 Integer Overflow를 일으킬 주문수량값을 입력하고 주문수량 중 특별상품(특별상품은 각자 고유의 ID를 가지는 상품으로 ID 정보 저장을 위해 최대 주문수량 만큼 가능하기에 주문수량 크기만큼 할당)으로 업그레이드 시킬 제품 수량을 Integer Overflow에 의해 작아진 Buffer크기를 넘어 Buffer Overflow를 일으킬 특별상품 수량값을 입력하여 실제로 할당되는 크기 변조<br>
 2-1) 2.공격 확인 테스트-4) Integer Overflow->Buffer Overflow test 과정과 동일하게 진행<br><br>
-3)Buffer Overflow test : 
 
-
+4.실제 공격2<br>
+1)Buffer Overflow test : 추가 요구사항에 Buffer Overflow를 일으킬 요구사항을 입력하여 Buffer Overflow를 유발시켜 넘어선 메모리 영역에 악성 코드를 삽입하여 공격자가 지정한 html페이지로 이동<br>
+1-1)공격에 취약한 order.c 컴파일<br>
+1-2)gcc -o attack attack.c 컴파일<br>
+attack 디렉토리에서 ./attack > ../backend/input.bin
+backend 디렉토리에서 ./order 10 5 "$(cat input.bin)"
 
 

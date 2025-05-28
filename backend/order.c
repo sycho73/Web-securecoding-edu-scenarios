@@ -61,7 +61,7 @@ void process_order(int quantity, int special_count, char *special_request) {
     char request_buffer[20];
     strcpy(request_buffer, special_request);  // Buffer Overflow 가능 지점
 
-    printf("추가 요청사항: %s\n", request_buffer);
+    printf("추가 요구사항: %s\n", request_buffer);
     fflush(stdout);
 
     reset_memory(special_buffer, corrupted_quantity);

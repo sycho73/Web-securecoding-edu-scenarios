@@ -74,13 +74,12 @@ Buffer Overflow 발생 가능성! (특별상품 버퍼 크기보다 더 많이 �
 1-3)attack 디렉토리에서 ./attack > ../backend/input.bin<br>
 1-4)backend 디렉토리에서 gdb --args ./order 10 5 "$(cat input.bin)" 이후 GDB에서 run실행<br>
 1-5)추가 요구사항: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;@P@@P����Exploit succeeded!<br>
-Segmentation fault. 와 같은 결과가 나오면 공격 성공<br>
+Segmentation fault. 와 같은 결과가 나오면 공격 성공<br><br>
 
-5.시큐어 코딩<br>
-Integer Overflow => quantity<=max_safe_quantity : 정수형 연산 전 오버플로우 검사,  __builtin_add_overflow() 사용 (GCC)
-Integer overflow -> buffer overflow => malloc 전 크기 제한 : calloc(), 경계 확인 및 로깅,포인터 유효성 검사, 최대 메모리 제한, 할당 실패 처리 
-bufferoverflow => strlen(special_request)<=sizeof(buffer) : strncpy()사용, snprintf,버퍼 크기 검사
-
+5.시큐어 코딩 확인<br>
+1)sudo apt install flawfinder 을 통해 flawfinder 설치<br>
+2)flawfinder order.c 를 통해 보안 약점 확인<br>
+2-1)터미널에 나오는 내용을 통해 개선 내용 및 코멘트 확인<br>
 
 
 
